@@ -80,7 +80,7 @@ while True:
         score += 1
         while move_board[pos[1]][pos[0]] != 0: pos = [random.randint(0, size - 1), random.randint(0, size - 1)]
         while move_board[end_pos[1]][end_pos[0]] != 0: end_pos = [random.randint(0, size - 1), random.randint(0, size - 1)]
-        move_board[pos[1]][pos[0]] = 1
+        move_board[pos[1]][pos[0]] = 2
     
     os.system("clear")
     
