@@ -1,6 +1,9 @@
 import pynput, os, random
 
-size = 10
+os.system('clear')
+size = -1
+while not 4 <= size <= 20: size = int(input('How big do you want the board to be? (4 - 20): '))
+
 move_board = [[0 for _ in range(size)] for _ in range(size)]
 
 moves = {
@@ -17,12 +20,12 @@ messages = {
     range(7, 11): 'You are very far from the goal.'
 }
 
-pos = [random.randint(0, 9), random.randint(0, 9)]
-end_pos = [random.randint(0, 9), random.randint(0, 9)]
-move_board[pos[1]][pos[0]] = 1
+pos = [random.randint(0, size - 1), random.randint(0, size - 1)]
+end_pos = [random.randint(0, size - 1), random.randint(0, size - 1)]
+move_board[pos[1]][pos[0]] = 2
 key_press = ''
 not_moved = 0
-hint = 'start'
+hint = False
 score = 0
 
 def print_m(m):
@@ -36,13 +39,17 @@ def handleKeyPress(key):
     global key_press
     if isinstance(key, pynput.keyboard.KeyCode): key_press = key.char
     return False
+
+print('Press H to show end position, press any other key to continue.')
+with pynput.keyboard.Listener(
+        on_press=handleKeyPress) as listener:
+        listener.join()
+
+if key_press == 'h':
+    hint = True
     
 while True:
-    if hint == 'start':
-        h_key = input("Type H for a hint, any other key to exit out of the hint screen.\n").lower()
-        if h_key == 'h': hint = 'hint'
-        else: hint = 'no hint'
-    if hint == 'hint': move_board[end_pos[1]][end_pos[0]] = 'X'
+    if hint == True: move_board[end_pos[1]][end_pos[0]] = 'X'
     
     if not_moved != 0: print(f'You have not moved {not_moved} time(s).')
     
@@ -64,15 +71,15 @@ while True:
             pos[0] += moves[move][0]
             pos[1] += moves[move][1]
     
-    move_board[pos[1]][pos[0]] = 1
+    move_board[pos[1]][pos[0]] = 2
     
     if last_pos == [pos[0], pos[1]]:
         not_moved += 1
     
     if [pos[0], pos[1]] == end_pos:
         score += 1
-        pos = [random.randint(0, 9), random.randint(0, 9)]
-        end_pos = [random.randint(0, 9), random.randint(0, 9)]
+        while move_board[pos[1]][pos[0]] != 0: pos = [random.randint(0, size - 1), random.randint(0, size - 1)]
+        while move_board[end_pos[1]][end_pos[0]] != 0: end_pos = [random.randint(0, size - 1), random.randint(0, size - 1)]
         move_board[pos[1]][pos[0]] = 1
     
     os.system("clear")
