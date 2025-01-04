@@ -35,21 +35,29 @@ hint = False
 score = 0
 
 def print_m(m):
-    print("")
-    for i in range(len(m)):
-        for r in range(len(m)):
-            print(move_board[i][r], end=" ")
-        print("")
+    if m == None or len(m) != 0:
+        print("Matrix cannot be empty.")
+        os.abort()
         
+    else:
+        print("")
+        for i in range(len(m)):
+            for r in range(len(m)):
+                print(move_board[i][r], end=" ")
+            print("")
+            
+
 def handleKeyPress(key):
     global key_press
     if isinstance(key, pynput.keyboard.KeyCode): key_press = key.char
     return False
 
+
 def waitForKeyInput():
     with pynput.keyboard.Listener(
         on_press=handleKeyPress) as listener:
         listener.join()
+        
 
 print('Press H to show end position, press any other key to continue.')
 waitForKeyInput()
