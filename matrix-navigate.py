@@ -7,7 +7,7 @@ try:
     while not 4 <= size <= 20: size = int(input('How big do you want the board to be? (4 - 20): '))
 
 except ValueError:
-    print(f"You cannot input letters.")
+    print(f"You have to input numbers.")
     os.abort()
 
 move_board = [[0 for _ in range(size)] for _ in range(size)]
@@ -61,10 +61,6 @@ def waitForKeyInput():
 
 print('Press H to show end position, press any other key to continue.')
 waitForKeyInput()
-
-# with pynput.keyboard.Listener(
-#         on_press=handleKeyPress) as listener:
-#         listener.join()
 
 if key_press == 'h':
     hint = True
