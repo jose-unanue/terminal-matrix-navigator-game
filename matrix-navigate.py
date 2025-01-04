@@ -2,7 +2,13 @@ import pynput, os, random, time
 
 os.system('clear')
 size = -1
-while not 4 <= size <= 20: size = int(input('How big do you want the board to be? (4 - 20): '))
+
+try:
+    while not 4 <= size <= 20: size = int(input('How big do you want the board to be? (4 - 20): '))
+
+except ValueError:
+    print(f"You cannot input letters.")
+    os.abort()
 
 move_board = [[0 for _ in range(size)] for _ in range(size)]
 
@@ -40,10 +46,17 @@ def handleKeyPress(key):
     if isinstance(key, pynput.keyboard.KeyCode): key_press = key.char
     return False
 
-print('Press H to show end position, press any other key to continue.')
-with pynput.keyboard.Listener(
+def waitForKeyInput():
+    with pynput.keyboard.Listener(
         on_press=handleKeyPress) as listener:
         listener.join()
+
+print('Press H to show end position, press any other key to continue.')
+waitForKeyInput()
+
+# with pynput.keyboard.Listener(
+#         on_press=handleKeyPress) as listener:
+#         listener.join()
 
 if key_press == 'h':
     hint = True
@@ -60,9 +73,7 @@ while True:
     
     print_m(move_board)
     
-    with pynput.keyboard.Listener(
-        on_press=handleKeyPress) as listener:
-        listener.join()
+    waitForKeyInput()
     
     move_board[pos[1]][pos[0]] = 0
     
