@@ -23,7 +23,7 @@ messages = {
 pos = [random.randint(0, size - 1), random.randint(0, size - 1)]
 end_pos = [random.randint(0, size - 1), random.randint(0, size - 1)]
 move_board[pos[1]][pos[0]] = 2
-key_press = ''
+key_press = None
 not_moved = 0
 hint = False
 score = 0
@@ -52,6 +52,7 @@ while True:
     if hint == True: move_board[end_pos[1]][end_pos[0]] = 'X'
     
     if not_moved != 0: print(f'You have not moved {not_moved} time(s).')
+    if key_press != None: print(f"Last key pressed is {key_press.capitalize()}")
     
     for _, goal_range in enumerate(messages):
         if max(abs(pos[0] - end_pos[0]), abs(pos[1] - end_pos[1])) in goal_range and hint != 'hint':
