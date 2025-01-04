@@ -7,7 +7,7 @@ try:
     while not 4 <= size <= 20: size = int(input('How big do you want the board to be? (4 - 20): '))
 
 except ValueError:
-    print(f"You have to input numbers.")
+    print(f'You have to input numbers.')
     os.abort()
 
 move_board = [[0 for _ in range(size)] for _ in range(size)]
@@ -36,15 +36,15 @@ score = 0
 
 def print_m(m):
     if m == None or len(m) != 0:
-        print("Matrix cannot be empty.")
+        print('Matrix cannot be empty.')
         os.abort()
         
     else:
-        print("")
+        print('')
         for i in range(len(m)):
             for r in range(len(m)):
-                print(move_board[i][r], end=" ")
-            print("")
+                print(move_board[i][r], end=' ')
+            print('')
             
 
 def handleKeyPress(key):
@@ -69,7 +69,7 @@ while True:
     if hint == True: move_board[end_pos[1]][end_pos[0]] = 'X'
     
     if not_moved != 0: print(f'You have not moved {not_moved} time(s).')
-    if key_press != None: print(f"Last key pressed is {key_press.capitalize()}")
+    if key_press != None: print(f'Last key pressed is {key_press.capitalize()}')
     
     for _, goal_range in enumerate(messages):
         if max(abs(pos[0] - end_pos[0]), abs(pos[1] - end_pos[1])) in goal_range and hint != 'hint':
@@ -97,13 +97,13 @@ while True:
         while move_board[pos[1]][pos[0]] != 0: pos = [random.randint(0, size - 1), random.randint(0, size - 1)]
         while move_board[end_pos[1]][end_pos[0]] != 0: end_pos = [random.randint(0, size - 1), random.randint(0, size - 1)]
         move_board[pos[1]][pos[0]] = 2
-        os.system("clear")
-        print(f"You have reached the goal! Next round begins in")
+        os.system('clear')
+        print(f'You have reached the goal! Next round begins in')
         for i in range(3):
-            print(f"{3 - i}...")
+            print(f'{3 - i}...')
             time.sleep(1)
     
-    os.system("clear")
+    os.system('clear')
     
     if not_moved > 5:
         break
